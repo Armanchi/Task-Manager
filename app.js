@@ -1,26 +1,71 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();
+require("express-async-errors");
+
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session');
 const morgan = require('morgan');
 
+const passport_init = require("./passport/passport_init");
+
+const app = express();
+
+
+const MongoDBStore = require("connect-mongodb-session")(session);
+
+
+const url = process.env.MONGO_URI;
+const store = new MongoDBStore({
+  uri: url,
+  collection: "Sessions",
+});
+store.on("error", function (error) {
+  console.log(error);
+});
+
+
 //db
 const connectDB = require("./db/connect");
+
+const page_router = require("./routes/page_routes");
+const gamesRoute = require("./routes/games");
+
+const { authMiddleware, setCurrentUser } = require('./middleware/auth');
+const errorHandlerMiddleware = require("./middleware/error-handler");
+const notFoundMiddleware = require("./middleware/not-found");
 
 // log requests
 app.use(morgan('tiny'));
 
+app.set("view engine", "ejs");
+
+app.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: true,
+      store: store,
+    })
+  );
 
 const cors = require('cors');
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimiter = require('express-rate-limit')
 
+passport_init();
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(setCurrentUser);
+app.use("/", page_router);
+app.use("/games", authMiddleware, gamesRoute);
+
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 
 app.set('trust proxy', 1);
@@ -40,6 +85,7 @@ app.use(
     },
   })
 );
+
 app.use(xss());
 app.use(bodyParser());
 

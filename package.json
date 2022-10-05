@@ -18,8 +18,9 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.8",
-    "eslint": "^8.23.1",
+    "eslint": "^8.24.0",
     "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
     "express-rate-limit": "^6.6.0",
     "express-session": "^1.17.3",
     "helmet": "^6.0.0",
@@ -46,4 +47,3 @@
   },
   "homepage": "https://github.com/Armanchi/node-final-project#readme"
 }
-

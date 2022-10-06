@@ -1,18 +1,25 @@
 require('dotenv').config();
 const express = require('express');
 require("express-async-errors");
-
-const bodyParser = require('body-parser');
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
 const morgan = require('morgan');
-
-const passport_init = require("./passport/passport_init");
-
-const app = express();
+const bodyParser = require('body-parser');
 
 
 const MongoDBStore = require("connect-mongodb-session")(session);
+const passport_init = require("./passport/passport_init");
+
+//db
+const connectDB = require("./db/connect");
+
+
+const page_router = require("./routes/page_routes");
+const mangaRoute = require("./routes/manga");
+
+const { authMiddleware, setCurrentUser } = require('./middleware/auth');
+const errorHandlerMiddleware = require("./middleware/error-handler");
+const notFoundMiddleware = require("./middleware/not-found");
 
 
 const url = process.env.MONGO_URI;
@@ -24,21 +31,13 @@ store.on("error", function (error) {
   console.log(error);
 });
 
-
-//db
-const connectDB = require("./db/connect");
-
-const page_router = require("./routes/page_routes");
-const gamesRoute = require("./routes/games");
-
-const { authMiddleware, setCurrentUser } = require('./middleware/auth');
-const errorHandlerMiddleware = require("./middleware/error-handler");
-const notFoundMiddleware = require("./middleware/not-found");
-
-// log requests
-app.use(morgan('tiny'));
+const app = express();
 
 app.set("view engine", "ejs");
+
+app.use(express.static(__dirname + '/public'));
+
+
 
 app.use(
     session({
@@ -49,30 +48,20 @@ app.use(
     })
   );
 
-const cors = require('cors');
-const helmet = require("helmet");
-const xss = require("xss-clean");
-const rateLimiter = require('express-rate-limit')
-
 passport_init();
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+
 app.use(setCurrentUser);
 app.use("/", page_router);
-app.use("/games", authMiddleware, gamesRoute);
+app.use("/manga", authMiddleware, mangaRoute);
 
-
-app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware);
-
-
-app.set('trust proxy', 1);
-app.use(rateLimiter({
-  windowsMs: 15 * 60 * 1000, //15 minutes
-  max: 100, //limit each IP to 100 requests per  window
-}));
+const cors = require('cors');
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimiter = require('express-rate-limit')
 
 app.use(express.json());  
 app.use(cors());
@@ -87,10 +76,14 @@ app.use(
 );
 
 app.use(xss());
-app.use(bodyParser());
 
-app.use(express.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({ extended: false })) 
+app.use(bodyParser.json())
 
+app.use(morgan());
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 
 

@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
-        required: [true, 'Please provide name'],
+        required: [true, 'please provide name'],
         maxlength: 50,
         minlength: 2,
     },
@@ -19,12 +19,9 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String, 
         required: [true, 'Please provide password'],
-        minlength: 6,
-        maxlength: 12,
     },
+
 })
-
-
 
  UserSchema.pre('save', async function() {
     const salt = await bcrypt.genSalt(10)
@@ -32,7 +29,7 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.methods.createJWT = function () {
-    return jwt.sign({userId: this._id, name: this.name}, process.env.JWT_SECRET, {
+    return jwt.sign({userId: this._id, name: this.username}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_LIFETIME
     })
   }
@@ -42,5 +39,7 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
     return isMatch
   }
 
-module.exports = mongoose.model('User', UserSchema)
+  
 
+const User = mongoose.model("user", UserSchema);
+module.exports = User;

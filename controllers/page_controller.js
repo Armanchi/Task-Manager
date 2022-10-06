@@ -9,6 +9,7 @@ const render_index = (req, res) => {
   }
   res.render("pages/index", { messages });
 };
+
 const render_restricted = (req, res) => {
   let messages = [];
   if (req.session.messages) {
@@ -17,36 +18,36 @@ const render_restricted = (req, res) => {
   }
   res.render("pages/restricted", { messages });
 }
+
 const render_sign_up = (req, res) => {
   let messages = [];
   if (req.session.messages) {
     messages = req.session.messages;
     req.session.messages = [];
   }
-  res.render("pages/sign-up-form", { messages });
+  res.render("pages/sign-up", { messages });
 };
 
 const sign_up = async (req, res) => {
   
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   await User.create({
-    name: req.body.name,
+    username: req.body.name,
     email: req.body.email,
     password: hashedPassword,
   });
   res.redirect("/");
 };
-//render games form
 
-const render_games = (req, res) => {
+
+const render_manga = (req, res) => {
   let messages = [];
   if (req.session.messages) {
     messages = req.session.messages;
     req.session.messages = [];
   }
-  res.render("pages/games", { messages });
+  res.render("pages/manga", { messages });
 }
-
 
 
 const log_out = (req, res) => {
@@ -62,7 +63,7 @@ module.exports = {
   render_index,
   render_sign_up,
   sign_up,
-  render_games,
+  render_manga,
   render_restricted,
   log_out,
 };

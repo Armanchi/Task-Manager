@@ -8,12 +8,8 @@ const bcrypt = require("bcryptjs");
 
 const passport_init = () => {
   passport.use(
-    new LocalStrategy({ 
-      usernameField: 'email',
-      passwordField: 'password'
-    }
-  ,(email, password, done) => {
-      User.findOne({ username: email }, (err, user) => {
+    new LocalStrategy({ usernameField: 'email' },(email, password, done) => {
+      User.findOne({ email: email }, (err, user) => {
         if (err) {
           return done(err);
         }

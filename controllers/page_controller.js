@@ -1,4 +1,5 @@
 const User = require("../models/User");
+
 const bcrypt = require("bcryptjs");
 
 const render_index = (req, res) => {
@@ -9,7 +10,6 @@ const render_index = (req, res) => {
   }
   res.render("pages/index", { messages });
 };
-
 const render_restricted = (req, res) => {
   let messages = [];
   if (req.session.messages) {
@@ -18,7 +18,6 @@ const render_restricted = (req, res) => {
   }
   res.render("pages/restricted", { messages });
 }
-
 const render_sign_up = (req, res) => {
   let messages = [];
   if (req.session.messages) {
@@ -32,11 +31,11 @@ const sign_up = async (req, res) => {
   
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
   await User.create({
-    username: req.body.name,
+    name: req.body.name,
     email: req.body.email,
     password: hashedPassword,
   });
-  res.redirect("/");
+  res.redirect("/manga");
 };
 
 
@@ -48,6 +47,7 @@ const render_manga = (req, res) => {
   }
   res.render("pages/manga", { messages });
 }
+
 
 
 const log_out = (req, res) => {

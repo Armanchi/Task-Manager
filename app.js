@@ -3,8 +3,6 @@ const express = require('express');
 require("express-async-errors");
 const session = require('express-session');
 const passport = require('passport');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
 
 
 const MongoDBStore = require("connect-mongodb-session")(session);
@@ -37,8 +35,6 @@ app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + '/public'));
 
-
-
 app.use(
     session({
       secret: process.env.SESSION_SECRET,
@@ -58,36 +54,16 @@ app.use(setCurrentUser);
 app.use("/", page_router);
 app.use("/manga", authMiddleware, mangaRoute);
 
-const cors = require('cors');
-const helmet = require("helmet");
-const xss = require("xss-clean");
-const rateLimiter = require('express-rate-limit')
 
 app.use(express.json());  
-app.use(cors());
-app.use(helmet({ crossOriginEmbedderPolicy: false, originAgentCluster: true }));
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      "img-src": ["'self'", "https: data: blob:"],
-    },
-  })
-);
 
-app.use(xss());
-
-app.use(bodyParser.urlencoded({ extended: false })) 
-app.use(bodyParser.json())
-
-app.use(morgan());
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 
 
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 5000;
 
 const start = async () => {
     try {
@@ -101,4 +77,3 @@ const start = async () => {
   };
   
   start();
-  

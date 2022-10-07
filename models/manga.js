@@ -9,7 +9,7 @@ const MangaSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:['completed', 'incomplete', 'pending'],
+        enum:['completed', 'currently reading', 'want to read'],
         default: 'pending',
     },
       genre: {
@@ -55,3 +55,8 @@ const MangaSchema = new mongoose.Schema({
 
 const manga = mongoose.model('manga', MangaSchema)
 const comments = mongoose.model('comments', CommentSchema)
+
+module.exports = {
+  manga,
+  comments,
+}

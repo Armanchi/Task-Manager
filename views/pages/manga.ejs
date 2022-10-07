@@ -18,68 +18,25 @@
 
 </head>
 
-<header class="header">
-    <%- include('../partials/header-2'); %>
+
+
+  <header>
+    <%- include('../partials/header'); %>
   </header>
+  
+  <main>
 
-<body>
 
-    <main>
-        <div class="jumbotron">
 
-          <% messages.forEach((msg) =>{ %>
-            <p class="msg"><%= msg %></p>
-         <% }) %>
-          <% if (currentUser) {%>
-            <p>Hello! <b><%= currentUser.name %></b>!</p> 
-         
-              <% if (mangas.length > 0) { %>
-
-                <table class="table">
-
-                <tr><th>Title</th><th>Genre</th><th>Status</th><th>Rating</th><th colspan="5">Edit / Delete</th></tr>
-
-                <% mangas.forEach(function(manga){ %>
-                  <tr><td><%= manga.name %></td><td class="title"><%= manga.genre %></td><td class="genre"><%= manga.status %></td><td><%= manga.rating %></td>
-
-                    <td><a href=<%= "/manga/edit/" + manga.id %>  class="btn">Edit</a></td>
-
-                    <td><a href=<%= "/manga/delete/" + manga.id %>  class="btn">Delete</a></td>
-
-                  </tr>
-
-                  <% }) %>
-
-                  <div class="log-out"><a class="btn" href="/log-out">Log Out</a></div><br>
-
-                </table>
-
-                <a href="/manga/add" class="btn">Add Manga</a><br><br><br>
-
-          <% } else { %>
-
-            <h4>There are no manga in your list! Click to add a new book! </h4>
-
-            <a href="/manga/add" class="btn">Add Manga</a><br><br><br>
-
-            <a class="btn" href="/log-out">Log Out</a>
-
-          <% } %>
-          <% } %>
-
-        </div>
-        
-      </main>
-
-    
-
+  </main>
+  
  
-</body>
+  
+  </body>
 
 
-<footer class="footer">
-  <%- include('../partials/footer'); %>
-</footer>
 
-</html>
-
+  <footer>
+    <%- include('../partials/footer'); %>
+  </footer>
+  </html>

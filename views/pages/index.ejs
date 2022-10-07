@@ -30,43 +30,68 @@
 
     <div class="wrapper">
 
-    <h1 class="heading">Welcome to My Manga List</h1>
+    <h1 class="heading">My Manga List</h1>
 
-  <% messages.forEach((msg) =>{ %>
-
-    <p><%= msg %></p>
-
- <% }) %>
+    <% messages.forEach((msg) =>{ %>
+      <p><%= msg %></p>
+   <% }) %>
 
   <% if (currentUser) {%>
-    <h1>Welcome Back! <%= currentUser.name %></h1>
-
-    <a href="/log-out">LOG OUT</a>
-
-  <% } else { %>
+    <h1 >Hello, <%= currentUser.name %>!</h1>
 
 
-    <h1 class="form-sign-in">Please log in or <a href="/sign-up">create an account!</a></h1>
+    <p class="welcome">Welcome back to your manga list!</p>
 
-    <form action="/log-in" method="post" name="Login_Form" class="form-signin">
+    <h2 class="desc">Create your list!</h2>
 
-               
-      <h2 class="form-signin-heading">Sign In</h2>
+    <p>Create your own personalized list from different 
+      titles on this manga database.
+    </p>
 
-      <!-- <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" /> -->
+    <h2 class="desc">Want to stay up to date?</h2>
 
-      <input type="text" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
+    <p>Use your list to track and organize 
+      what you are currently reading or plan to
+      read.
+    </p>
 
-      <input type="password" id="pass-form" class="form-control" name="password" placeholder="Password" required=""/>
+    <div class="anch">
+    
+    <a class="list" href="/manga">My list</a>
 
-      <button class="btn-1" name="Submit" value="Login" type="Submit">Login</button>
 
-      </form>
+
+    <a class="log" href="/log-out">Log out</a>
 
   </div>
 
-</div>
+  <% } else { %>
+    <h1 class="form-sign-in">Please log in or <a href="/sign-up">create an account!</a></h1>
+    <form action="/log-in" method="post" name="Login_Form" class="form-signin">
 
+      <h3>Create your list!</h3>
+
+      <p>Create your own personalized list from different 
+        titles on this manga database.
+      </p>
+  
+      <h3>Want to stay up to date?</h3>
+  
+      <p>Use your list to track and organize 
+        what you are currently reading or plan to
+        read.
+      </p>
+  
+      <p>Welcome back to your manga list!</p>
+               
+      <h2 class="form-signin-heading">Sign In</h2>
+      <!-- <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" /> -->
+      <input type="text" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
+      <input type="password" id="pass-form" class="form-control" name="password" placeholder="Password" required=""/>
+      <button class="btn-1" name="Submit" value="Login" type="Submit">Login</button>
+      </form>
+  </div>
+</div>
   <%}%>
 
 </body>

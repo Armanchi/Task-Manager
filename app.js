@@ -1,54 +1,69 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const passport = require('passport');
+require("express-async-errors");
 const session = require('express-session');
-const morgan = require('morgan');
+const passport = require('passport');
+
+
+const MongoDBStore = require("connect-mongodb-session")(session);
+const passport_init = require("./passport/passport_init");
 
 //db
 const connectDB = require("./db/connect");
 
-// log requests
-app.use(morgan('tiny'));
+
+const page_router = require("./routes/page_routes");
+const mangaRoute = require("./routes/manga");
+
+const { authMiddleware, setCurrentUser } = require('./middleware/auth');
+const errorHandlerMiddleware = require("./middleware/error-handler");
+const notFoundMiddleware = require("./middleware/not-found");
 
 
-const cors = require('cors');
-const helmet = require("helmet");
-const xss = require("xss-clean");
-const rateLimiter = require('express-rate-limit')
+const url = process.env.MONGO_URI;
+const store = new MongoDBStore({
+  uri: url,
+  collection: "Sessions",
+});
+store.on("error", function (error) {
+  console.log(error);
+});
 
+const app = express();
+
+app.set("view engine", "ejs");
+
+app.use(express.static(__dirname + '/public'));
+
+app.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: true,
+      store: store,
+    })
+  );
+
+passport_init();
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 
-app.set('trust proxy', 1);
-app.use(rateLimiter({
-  windowsMs: 15 * 60 * 1000, //15 minutes
-  max: 100, //limit each IP to 100 requests per  window
-}));
+app.use(setCurrentUser);
+app.use("/", page_router);
+app.use("/manga", authMiddleware, mangaRoute);
+
 
 app.use(express.json());  
-app.use(cors());
-app.use(helmet({ crossOriginEmbedderPolicy: false, originAgentCluster: true }));
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      "img-src": ["'self'", "https: data: blob:"],
-    },
-  })
-);
-app.use(xss());
-app.use(bodyParser());
 
-app.use(express.urlencoded({extended:true}))
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 
 
-
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 5000;
 
 const start = async () => {
     try {
@@ -62,4 +77,3 @@ const start = async () => {
   };
   
   start();
-  

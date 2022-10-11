@@ -18,8 +18,9 @@ const MangaSchema = new mongoose.Schema({
         default: '', 
       },
       comments:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
+        type: String,
+        trim: true,
+        maxlength: [150, "comments cannot acceed 150 characters"],
       },
       yearCreated:{
         type: Number,
@@ -29,10 +30,14 @@ const MangaSchema = new mongoose.Schema({
         type: Number,
         default: 0,
       },
+      comments: {
+        type: String,
+        trim: true,
+        maxlength: [150, "comments cannot exceed 150 characters"],
+      },
     createdBy:{
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-        required:[true, 'Please provide user']
+      type: String,
+      required: [true, "Please login first"],
     },
    
       createdDate: { 
@@ -40,23 +45,7 @@ const MangaSchema = new mongoose.Schema({
         default: Date.now },
     });
 
-    //comments
-    const CommentSchema = new mongoose.Schema({
-        text: String,
-        rating: {
-            type: Number,
-            min: 1,
-            max: 5,
-            validate: {validator: Number.isInteger}
-        },
-    });
 
 
+module.exports = mongoose.model("Manga", MangaSchema);
 
-const manga = mongoose.model('manga', MangaSchema)
-const comments = mongoose.model('comments', CommentSchema)
-
-module.exports = {
-  manga,
-  comments,
-}

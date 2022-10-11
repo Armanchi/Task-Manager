@@ -6,11 +6,40 @@ body {
     background: #E0EAFC;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */   
+    overflow: hidden;
+    display: flex;
 }
 
-button{
+.container{
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    margin: 80px 300px 100px;
+    background-image: url(https://img.freepik.com/premium-photo/white-paper-texture-background_1715-2559.jpg?w=2000);
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-style: solid;
+    border-width: 3px;
+
+}
+
+  .wrapper {
+    justify-content: center;
+    align-items: center;
+}
+form { 
+    margin: 0 auto; 
+    width:250px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.addbtn{
     align-self: center;
-    background-color: #fff;
+    background-color:#929dca;
     background-image: none;
     background-position: 0 90%;
     background-repeat: repeat no-repeat;
@@ -37,13 +66,28 @@ button{
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-  }
-  
-  button:hover {
+    }
+    
+.addbtn:hover {
     box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
     transform: translate3d(0, 2px, 0);
-  }
-  
-  button:focus {
+}
+      
+.addbtn:focus {
     box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
-  }
+}
+    
+label{
+    font-size: 28px;
+    font-weight: 600;
+    background-color: #D9AFD9;
+    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+option{
+     font-family: 'VT323', monospace;
+}

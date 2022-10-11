@@ -1,42 +1,85 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
-<head>
 
-  <meta charset="UTF-8">
+  <head>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel = "stylesheet" href = "/public/stylesheets/manga.css" />
-
-  <title>my-manga</title>
-
+    <link rel = "stylesheet" href = "/stylesheets/manga-page.css" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass&family=VT323&display=swap" rel="stylesheet"> 
 
-</head>
+  </head>
 
 
+<body class="container">
 
-  <header>
-    <%- include('../partials/header'); %>
-  </header>
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+
+  <div>
+    <% messages.forEach((msg) =>{ %>
+      <p class="msg"><%= msg %></p>
+   <% }) %>
+    <% if (currentUser) {%>
+      <h1 class="user">
+        <%= currentUser.name %>'s list</h1> 
+
+      <!-- filter button -->
+
+      <!-- <a id="filter-button" class="button-fil">Filter</a> -->
+
+      <div class="scroll">
+   
+        <% if (mangas.length > 0) { %>
+
+          <table class="table">
+
+          <tr><th>Title</th><th>Status</th><th>Genre</th><th>Rating</th><th class="comments">Comments</th><th colspan="5">Edit Delete</th></tr>
+
+          <% mangas.forEach(function(manga){ %>
+
+            <tr><td><%= manga.name %></td><td><%= manga.genre %></td><td class="title"><%= manga.status %></td><td class="status"><%= manga.rating %></td><td><%= manga.comments %></td>
+              
+              <td><a href=<%= "/manga/edit/" + manga.id %>  class="btn">Edit</a></td>
+              
+              <td><a href=<%= "/manga/delete/" + manga.id %>  class="btn">Delete</a></td>
+            </tr>
+            <% }) %>
+
+          </table>
+
+        </div>
+
+        <div class="adddiv">
+
+          <a href="/manga/add" id="addbtn">Add Entry</a><br><br><br>
+
+        </div>
+
+    <% } else { %>
+      <h4>There are no entries to show! Please add one.</h4>
+
+      <a href="/manga/add" id="addbtn">Add entry</a><br><br><br>
+
+      <a class="btn" href="/log-out">Log out</a>
+    <% } %>
+    <% } %>
   
-  <main>
+  </div>
+
+</main>
 
 
 
-  </main>
-  
- 
-  
-  </body>
+</body>
 
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
 
-
-  <footer>
-    <%- include('../partials/footer'); %>
-  </footer>
-  </html>
+</html>

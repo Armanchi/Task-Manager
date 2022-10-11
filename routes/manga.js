@@ -18,5 +18,3 @@ router.route('/edit/:id').get(editManga);
 router.route('/add').get(addManga);
 
 module.exports = router;
-  
-  module.exports = router;

@@ -4,29 +4,106 @@
 
 <head>
 
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel = "stylesheet" href = "/public/stylesheets/addManga.css" />
-
-  <title>my-manga</title>
-
-
+  <link rel = "stylesheet" href = "/stylesheets/addManga.css"/>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
 
+  <title>my-manga</title>
+
 </head>
+
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+
 
 <body>
 
-    <h1>Manga!</h1>
+    <main>
 
+        <div class="container">
+
+        <div class="wrapper">
+         
+           
+        <form action="/manga" method="post">
+
+            <label for="name">Title:</label><br>
+            <textarea name="name" cols="40" rows="1" placeholder="Please write title here"></textarea><br><br>
+
+            <label for="genre">Genre:</label><br>
+
+            <select name="genre">
+
+                <option value="Select One">select One</option>
+                <option value="Shounen">Shounen</option>
+                <option value="Seinen">Seinin</option>
+                <option value="Shoujo">Shoujo</option>
+                <option value="Josei">Josei</option>
+
+            </select><br>
+
+            <label for="status">Status</label><br>
+
+            <select name="status">
+
+              <option value="Select One">select One</option>
+              <option value="want to read">want to read</option>
+              <option value="currently reading">currently reading</option>
+              <option value="completed">completed</option>
+
+          </select><br>
+
+            <label for="rating">Rating</label><br>
+
+            <select name="rating">
+
+              <option value="Select One">select One</option>
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+
+          </select><br>
+
+            
+          <label for="comments">Comments:</label><br>
+            
+          
+          <textarea name="comments" cols="40" rows="4" placeholder="Comments"></textarea><br><br>
+
+            <a class="addbtn" href="/manga">Cancel</a>
+
+            <button class="addbtn" type="submit">Add</button>
+        </form>
+       
+      
+      
+      </div>
+
+        </div>
+    
+    
+      </main>
+
+
+
+     
+
+
+</body>
+
+
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
     
 
- 
-</body>
 
 </html>

@@ -44,13 +44,13 @@
 
     <h2 class="desc">Create your list!</h2>
 
-    <p>Create your own personalized list from different 
+    <p class="first">Create your own personalized list from different 
       titles on this graphic novel database.
     </p>
 
     <h2 class="desc">Want to stay up to date?</h2>
 
-    <p>Use your list to track and organize 
+    <p class="first">Use your list to track and organize 
       what you want to read, are currently reading or plan to
       read.
     </p>
@@ -66,32 +66,57 @@
   </div>
 
   <% } else { %>
-    <h1 class="form-sign-in">Please log in or <a href="/sign-up">create an account!</a></h1>
-    <form action="/log-in" method="post" name="Login_Form" class="form-signin">
 
-      <h3>Create your list!</h3>
 
-      <p class="descrip">Create your own personalized list from different 
+    <div class="intro-div">
+
+    <div class="wrapper-2">
+
+    <h2 class="form-sign-in">Please log in</h2>
+
+    <h2>Dont have an account?</h2>
+    <a class="list"href="/sign-up">create an account!</a>
+
+  <h3 class="headng">Create your list!</h3>
+
+      <p class="desc-2">Create your own personalized list from different 
         titles on this graphic novel database.
       </p>
+<!--   
+      <h3 class="headng">Want to stay up to date?</h3>
   
-      <h3>Want to stay up to date?</h3>
-  
-      <p class="descrip">Use your list to track and organize 
+      <p class="desc-2">Use your list to track and organize 
         what you are currently reading or plan to
         read.
-      </p>
-  
-      <p>Welcome back to your manga list!</p>
-               
-      <h2 class="form-signin-heading">Sign In</h2>
-      <!-- <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" /> -->
-      <input type="text" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
-      <input type="password" id="pass-form" class="form-control" name="password" placeholder="Password" required=""/>
-      <button class="btn-1" name="Submit" value="Login" type="Submit">Login</button>
-      </form>
+  </p> -->
+
   </div>
-</div>
+  
+
+    <!-- <div class="form-hold"> -->
+
+    <form action="/log-in" method="post" name="Login_Form" class="form-signin">
+               
+        <h2 class="form-signin-heading">Sign In</h2>
+        <!-- <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" /> -->
+        <input type="text" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
+        <input type="password" id="pass-form" class="form-control" name="password" placeholder="Password" required=""/>
+        <button class="btn-1" name="Submit" value="Login" type="Submit">Login</button>
+        </form>
+
+
+      </div>
+
+      <!-- </div> -->
+      
+
+    
+
+      <!-- <p>Welcome back to your manga list!</p> -->
+
+   
+
+
   <%}%>
 
 </body>

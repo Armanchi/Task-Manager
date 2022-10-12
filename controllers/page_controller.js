@@ -35,7 +35,7 @@ const sign_up = async (req, res) => {
     email: req.body.email,
     password: hashedPassword,
   });
-  res.redirect("/manga");
+  res.redirect("/");
 };
 
 

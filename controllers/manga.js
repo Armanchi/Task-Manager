@@ -1,4 +1,4 @@
-// const manga = require("../models/manga");
+const manga = require("../models/manga");
 const Manga = require("../models/manga")
 
 const addManga = (req, res) => {

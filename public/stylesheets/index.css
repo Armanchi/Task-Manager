@@ -11,6 +11,9 @@ body {
     display: flex;
 }
 
+.sign-in{
+    display: block;
+}
 .heading{
     font-size: 40px;
     font-family:'VT323', monospace;
@@ -86,19 +89,24 @@ button:focus {
     align-items: center;
     padding-top: 50px;  
 }
-.form-sign-in {
+.headng{
+    color:#929dca;
     font-size: 20px;
-    align-self: center;
-    margin-left: 35px;
+}
+.form-sign-in {
+    text-align:center;
+    font-size: 30px;
 } 
- 
+
 .form-signin {
-    width: 200px;
-    height:160px;
-    padding: 60px; 
-    padding-top: 5px;
-    margin: 20px;
-}   
+    width: 25%;
+
+}
+.wrapper-2{
+    width: 25%;
+    padding-right: 30px;
+}
+  
 .form-signin-heading {
     text-align:center;
     font-size: 30px;
@@ -114,6 +122,16 @@ button:focus {
     border-top-right-radius: 15px 225px;
 }
 
+.intro-div{
+
+    /* display: inline-block; */
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+   
+}
+
  
 input[type="text"] {
     margin-bottom: 10px;
@@ -126,6 +144,7 @@ input[type="password"] {
     border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
      font-family:  'VT323', monospace;
 } 
+
 
 #intro{
     font-size: 20px;
@@ -145,10 +164,6 @@ input[type="password"] {
 .desc{
     font-family: 'VT323', monospace;
     font-size: 20px;
-}
-
-.descrip{
-    font-size: 15px;
 }
 
 h1{
@@ -259,4 +274,3 @@ h3{
   .log:focus {
     box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   }
-
